@@ -1,4 +1,4 @@
-package com.dragonfly.bt.btclient
+package com.dragonfly.bt.client
 
 import android.annotation.SuppressLint
 import android.bluetooth.BluetoothAdapter

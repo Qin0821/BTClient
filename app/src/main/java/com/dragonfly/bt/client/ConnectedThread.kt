@@ -1,13 +1,13 @@
-package com.dragonfly.bt.btclient
+package com.dragonfly.bt.client
 
 import android.bluetooth.BluetoothSocket
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
-import com.dragonfly.bt.btclient.MainActivity.Companion.MESSAGE_READ
-import com.dragonfly.bt.btclient.MainActivity.Companion.MESSAGE_TOAST
-import com.dragonfly.bt.btclient.MainActivity.Companion.MESSAGE_WRITE
-import com.dragonfly.bt.btclient.MainActivity.Companion.TAG
+import com.dragonfly.bt.client.MainActivity.Companion.MESSAGE_READ
+import com.dragonfly.bt.client.MainActivity.Companion.MESSAGE_TOAST
+import com.dragonfly.bt.client.MainActivity.Companion.MESSAGE_WRITE
+import com.dragonfly.bt.client.MainActivity.Companion.TAG
 import java.io.IOException
 import java.io.InputStream
 import java.io.OutputStream
