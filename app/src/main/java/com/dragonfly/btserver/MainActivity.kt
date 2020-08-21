@@ -8,6 +8,7 @@ import android.bluetooth.BluetoothServerSocket
 import android.bluetooth.BluetoothSocket
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.blankj.utilcode.util.ToastUtils
 import kotlinx.android.synthetic.main.activity_main.*
@@ -29,14 +30,11 @@ class MainActivity : AppCompatActivity() {
         tvUUID.text = "配对UUID：$XXH_UUID \n" +
                 "已配对设备:\n" +
                 bluetoothAdapter?.bondedDevices?.map {
-                    when (it.bondState) {
-                        BluetoothDevice.BOND_BONDED -> "已连接 "
-                        BluetoothDevice.BOND_BONDING -> "正在连接 "
-                        else -> "未连接 "
-                    } + it.name + " " +  it.address + "\n"
+                    it.name + " " +  it.address + "\n"
                 }
 
         thread.start()
+        btDisConnect.visibility = View.VISIBLE
         btDisConnect.setOnClickListener {
             thread.cancel()
         }
