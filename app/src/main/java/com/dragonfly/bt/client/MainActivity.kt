@@ -133,8 +133,8 @@ class MainActivity : AppCompatActivity() {
 
             Log.e(TAG, socket.toString())
             write(mHi[(0..3).random()].toByteArray())
-            //                mConnectedThread = ConnectedThread(mHandler, socket)
-            //                mConnectedThread!!.start()
+            //   mConnectedThread = ConnectedThread(mHandler, socket)
+            //   mConnectedThread!!.start()
         }
         mConnectThread!!.start()
     }
