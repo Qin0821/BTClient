@@ -19,6 +19,7 @@ import com.blankj.utilcode.util.PermissionUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
+import com.dragonfly.btserver.R
 import com.kq.btb.toStr
 import kotlinx.android.synthetic.main.activity_main.*
 import java.io.IOException
