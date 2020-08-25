@@ -7,12 +7,18 @@
     tools:context=".MainActivity">
 
     <TextView
-        android:id="@+id/tvContent"
-        android:layout_width="wrap_content"
+        android:id="@+id/tvTip1"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:gravity="center"
+        android:text="点击取消配对, 长按连接"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvPaired"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tvTip1" />
 
     <TextView
         android:id="@+id/tvUUID"
@@ -20,7 +26,17 @@
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvContent" />
+        app:layout_constraintTop_toBottomOf="@id/rvPaired" />
+
+    <Button
+        android:id="@+id/btSayHi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="给Server发消息"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvUUID" />
 
     <Button
         android:id="@+id/btConnect"
@@ -29,12 +45,29 @@
         android:text="扫描设备"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvUUID" />
+        app:layout_constraintTop_toBottomOf="@id/btSayHi" />
+
+    <Button
+        android:id="@+id/btRefresh"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="刷新"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btConnect" />
+
+    <TextView
+        android:id="@+id/tvTip2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="点击配对"
+        app:layout_constraintTop_toBottomOf="@id/btRefresh" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvBt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/btConnect" />
+        app:layout_constraintTop_toBottomOf="@id/tvTip2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
