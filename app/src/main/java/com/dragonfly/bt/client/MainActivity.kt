@@ -65,7 +65,7 @@ class MainActivity : AppCompatActivity() {
         val filter = IntentFilter(BluetoothDevice.ACTION_FOUND)
         registerReceiver(receiver, filter)
 
-        btConnect.setOnClickListener {
+        btDiscover.setOnClickListener {
 
             Log.e(TAG, "start connect")
             mDiscoverAdapter.setNewInstance(ArrayList())

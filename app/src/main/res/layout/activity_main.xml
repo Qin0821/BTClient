@@ -38,7 +38,7 @@
         app:layout_constraintTop_toBottomOf="@id/tvUUID" />
 
     <Button
-        android:id="@+id/btConnect"
+        android:id="@+id/btDiscover"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="扫描设备"
@@ -53,28 +53,7 @@
         android:text="刷新"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btConnect" />
-
-    <TextView
-        android:id="@+id/tvTip2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="点击配对"
-        app:layout_constraintTop_toBottomOf="@id/btRefresh" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvBt"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/tvTip2" />
-=======
-        android:id="@+id/tvUUID"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        app:layout_constraintTop_toBottomOf="@id/btDiscover" />
 
     <Button
         android:id="@+id/btDisConnect"
@@ -83,6 +62,20 @@
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvUUID" />
+        app:layout_constraintTop_toBottomOf="@id/btRefresh" />
+
+    <TextView
+        android:id="@+id/tvTip2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="点击配对"
+        app:layout_constraintTop_toBottomOf="@id/btDisConnect" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvBt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tvTip2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
