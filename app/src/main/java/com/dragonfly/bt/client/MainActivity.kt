@@ -32,14 +32,13 @@ class MainActivity : AppCompatActivity() {
     companion object {
 
         const val TAG = "BTClient"
-        val XXH_UUID = UUID.fromString("33719b35-639a-4edc-b9bc-345cf8bf3829")
-        val mBtAdapter = BluetoothAdapter.getDefaultAdapter()
+        val XXH_UUID: UUID = UUID.fromString("33719b35-639a-4edc-b9bc-345cf8bf3829")
+        val mBtAdapter: BluetoothAdapter = BluetoothAdapter.getDefaultAdapter()
 
         const val MESSAGE_READ: Int = 0
         const val MESSAGE_WRITE: Int = 1
         const val MESSAGE_TOAST: Int = 2
     }
-//    val bluetoothAdapter: BluetoothAdapter? = BluetoothAdapter.getDefaultAdapter()
 
     private lateinit var mDiscoverAdapter: BaseQuickAdapter<BluetoothDevice, BaseViewHolder>
     private lateinit var mPairedAdapter: BaseQuickAdapter<BluetoothDevice, BaseViewHolder>
@@ -48,7 +47,7 @@ class MainActivity : AppCompatActivity() {
 
     private var mConnectThread: ConnectThread? = null
     private var mConnectedThread: ConnectedThread? = null
-
+    private var mFilterNull = false
 
     private val mHi = arrayOf("hi", "Hello", "你好", "hanihaseiyo")
 
@@ -66,12 +65,13 @@ class MainActivity : AppCompatActivity() {
         registerReceiver(receiver, filter)
 
         btDiscover.setOnClickListener {
+            mFilterNull = false
+            startDiscover()
+        }
 
-            Log.e(TAG, "start connect")
-            mDiscoverAdapter.setNewInstance(ArrayList())
-            if (mBtAdapter.isDiscovering) mBtAdapter.cancelDiscovery()
-            val result = mBtAdapter.startDiscovery()
-            Log.e(TAG, result.toString())
+        btDiscoverFilter.setOnClickListener {
+            mFilterNull = true
+            startDiscover()
         }
 
         btSayHi.setOnClickListener {
@@ -80,7 +80,9 @@ class MainActivity : AppCompatActivity() {
         }
 
         btRefresh.setOnClickListener {
-            mPairedAdapter.setNewInstance(mBtAdapter.bondedDevices.toMutableList())
+            tvTip2.text = ""
+            addTip("刷新")
+            mPairedAdapter.setList(mBtAdapter.bondedDevices.toMutableList())
         }
 
         mDiscoverAdapter =
@@ -109,7 +111,7 @@ class MainActivity : AppCompatActivity() {
         mPairedAdapter.setOnItemChildClickListener { adapter, view, position ->
 
             removeBond(adapter.getItem(position) as BluetoothDevice)
-            mPairedAdapter.setNewInstance(mBtAdapter.bondedDevices.toMutableList())
+            mPairedAdapter.setList(mBtAdapter.bondedDevices.toMutableList())
         }
         mPairedAdapter.setOnItemChildLongClickListener { adapter, view, position ->
             connect(adapter, position)
@@ -119,16 +121,25 @@ class MainActivity : AppCompatActivity() {
         rvPaired.adapter = mPairedAdapter
     }
 
+    private fun startDiscover() {
+        Log.e(TAG, "start connect")
+        mDiscoverAdapter.setList(ArrayList())
+        if (mBtAdapter.isDiscovering) mBtAdapter.cancelDiscovery()
+        val result = mBtAdapter.startDiscovery()
+        Log.e(TAG, result.toString())
+    }
+
     private fun connect(adapter: BaseQuickAdapter<*, *>, position: Int) {
         mBtAdapter.cancelDiscovery()
 
         val device = adapter.getItem(position) as BluetoothDevice
+        addTip("开始连接${device.name} ${device.address}")
         mConnectThread = ConnectThread(device) { socket ->
             mSocket = socket
 
+            addTip("连接成功")
             runOnUiThread {
-                ToastUtils.showShort("配对成功")
-                mPairedAdapter.setNewInstance(mBtAdapter.bondedDevices.toMutableList())
+                mPairedAdapter.setList(mBtAdapter.bondedDevices.toMutableList())
             }
 
             Log.e(TAG, socket.toString())
@@ -141,11 +152,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun write(bytes: ByteArray) {
-        val mmBuffer: ByteArray = ByteArray(1024)
+        addTip("发送消息：'这是中文this is english'")
+        val mmBuffer = ByteArray(1024)
         try {
             val mmOutStream: OutputStream = mSocket!!.outputStream
             mmOutStream.write(bytes)
-        } catch (e: IOException) {
+        } catch (e: Exception) {
+            addTip("发送消息失败：${e.message}")
             Log.e(TAG, "Error occurred when sending data", e)
 
             // Send a failure message back to the activity.
@@ -158,6 +171,8 @@ class MainActivity : AppCompatActivity() {
             return
         }
 
+        addTip("发送消息结束")
+
         // Share the sent message with the UI activity.
         val writtenMsg = mHandler.obtainMessage(
             MESSAGE_WRITE, -1, -1, mmBuffer
@@ -167,9 +182,10 @@ class MainActivity : AppCompatActivity() {
 
     private fun removeBond(device: BluetoothDevice) {
         try {
+            addTip("移除配对")
             device::class.java.getMethod("removeBond").invoke(device)
         } catch (e: Exception) {
-            ToastUtils.showShort("取消配对失败")
+            addTip("移除配对失败：${e.message}")
             Log.e(TAG, "Removing bond has been failed. ${e.message}")
         }
     }
@@ -186,6 +202,11 @@ class MainActivity : AppCompatActivity() {
                         return
                     }
                     val deviceName = device.name
+                    if (mFilterNull && (deviceName == null || deviceName == "null" || deviceName == "NULL")) {
+                        Log.e(TAG, "bt deviceName is null")
+                        return
+                    }
+
                     val deviceHardwareAddress = device.address // MAC address
 
                     Log.e(TAG, "name: $deviceName mac: $deviceHardwareAddress")
@@ -195,7 +216,8 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private val mHandler: Handler = object : Handler() {
+    private val mHandler: Handler = @SuppressLint("HandlerLeak")
+    object : Handler() {
         override fun handleMessage(msg: Message) {
             super.handleMessage(msg)
             when (msg.what) {
@@ -209,6 +231,12 @@ class MainActivity : AppCompatActivity() {
                     Log.e(TAG, "toast " + msg.arg1 + msg.arg2 + msg.obj)
                 }
             }
+        }
+    }
+
+    fun addTip(msg: String) {
+        runOnUiThread {
+            tvTip2.text = "${tvTip2.text}\n$msg"
         }
     }
 

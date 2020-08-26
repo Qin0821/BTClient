@@ -42,9 +42,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="扫描设备"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/btDiscoverFilter"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/btSayHi" />
+
+    <Button
+        android:id="@+id/btDiscoverFilter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="扫描设备(过滤name==null)"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/btDiscover"
+        app:layout_constraintTop_toBottomOf="@id/btSayHi" />
+
 
     <Button
         android:id="@+id/btRefresh"
@@ -57,9 +67,9 @@
 
     <Button
         android:id="@+id/btDisConnect"
-        android:text="断开配对"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="断开配对"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/btRefresh" />
