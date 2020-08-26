@@ -59,7 +59,7 @@ class MainActivity : AppCompatActivity() {
 
         PermissionUtils.permission(PermissionConstants.LOCATION, PermissionConstants.STORAGE)
             .callback { isAllGranted, _, _, _ ->
-                if (!isAllGranted) finish()
+                if (!isAllGranted) ToastUtils.showShort("无相关权限")
             }.request()
 
         val filter = IntentFilter(BluetoothDevice.ACTION_FOUND)
@@ -76,7 +76,7 @@ class MainActivity : AppCompatActivity() {
 
         btSayHi.setOnClickListener {
 //            mConnectedThread?.write(mHi[(1..3).random()].toByteArray())
-            write(mHi[(1..3).random()].toByteArray())
+            write("这是中文this is english".toByteArray())
         }
 
         btRefresh.setOnClickListener {
@@ -132,9 +132,10 @@ class MainActivity : AppCompatActivity() {
             }
 
             Log.e(TAG, socket.toString())
-            write(mHi[(0..3).random()].toByteArray())
-            //   mConnectedThread = ConnectedThread(mHandler, socket)
-            //   mConnectedThread!!.start()
+//            write(mHi[(0..3).random()].toByteArray())
+            write("这是中文this is english".toByteArray())
+            //                mConnectedThread = ConnectedThread(mHandler, socket)
+            //                mConnectedThread!!.start()
         }
         mConnectThread!!.start()
     }
