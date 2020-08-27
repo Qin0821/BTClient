@@ -21,7 +21,6 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.kq.btb.toStr
 import kotlinx.android.synthetic.main.activity_main.*
-import java.io.IOException
 import java.io.OutputStream
 import java.util.*
 import kotlin.collections.ArrayList
@@ -33,6 +32,7 @@ class MainActivity : AppCompatActivity() {
 
         const val TAG = "BTClient"
         val XXH_UUID: UUID = UUID.fromString("33719b35-639a-4edc-b9bc-345cf8bf3829")
+        val XXH_WRITE: UUID = UUID.fromString("33719b35-639a-4edc-b9bc-345cf8bf3830")
         val mBtAdapter: BluetoothAdapter = BluetoothAdapter.getDefaultAdapter()
 
         const val MESSAGE_READ: Int = 0
@@ -74,7 +74,7 @@ class MainActivity : AppCompatActivity() {
             startDiscover()
         }
 
-        btSayHi.setOnClickListener {
+        btWrite.setOnClickListener {
 //            mConnectedThread?.write(mHi[(1..3).random()].toByteArray())
             write("这是中文this is english".toByteArray())
         }

@@ -28,23 +28,13 @@
         app:layout_constraintTop_toBottomOf="@id/rvPaired" />
 
     <Button
-        android:id="@+id/btSayHi"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="给Server发消息"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvUUID" />
-
-    <Button
         android:id="@+id/btDiscover"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="扫描设备"
         app:layout_constraintEnd_toStartOf="@id/btDiscoverFilter"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btSayHi" />
+        app:layout_constraintTop_toBottomOf="@id/tvUUID" />
 
     <Button
         android:id="@+id/btDiscoverFilter"
@@ -53,15 +43,14 @@
         android:text="扫描设备(过滤name==null)"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/btDiscover"
-        app:layout_constraintTop_toBottomOf="@id/btSayHi" />
-
+        app:layout_constraintTop_toBottomOf="@id/tvUUID" />
 
     <Button
-        android:id="@+id/btRefresh"
+        android:id="@+id/btConnect"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="刷新"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:text="连接"
+        app:layout_constraintEnd_toStartOf="@id/btDisConnect"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/btDiscover" />
 
@@ -70,9 +59,39 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="断开配对"
+        app:layout_constraintBottom_toBottomOf="@id/btConnect"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/btConnect"
+        app:layout_constraintTop_toTopOf="@id/btConnect" />
+
+    <EditText
+        android:id="@+id/etWrite"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/btWrite"
+        app:layout_constraintTop_toTopOf="@id/btWrite"
+        app:layout_constraintBottom_toBottomOf="@id/btWrite"/>
+
+    <Button
+        android:id="@+id/btWrite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="写"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/etWrite"
+        app:layout_constraintTop_toBottomOf="@id/btConnect" />
+
+    <Button
+        android:id="@+id/btRefresh"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="刷新"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btRefresh" />
+        app:layout_constraintTop_toBottomOf="@id/btWrite" />
+
 
     <TextView
         android:id="@+id/tvTip2"
@@ -80,7 +99,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="点击配对"
-        app:layout_constraintTop_toBottomOf="@id/btDisConnect" />
+        app:layout_constraintTop_toBottomOf="@id/btRefresh" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvBt"
